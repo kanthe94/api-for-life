@@ -1,0 +1,93 @@
+openapi: 3.0.3
+info:
+  title: GitHub REST API
+  description: Basic GitHub API endpoints
+  version: 1.0.0
+servers:
+  - url: https://api.github.com
+paths:
+  /users/{username}:
+    get:
+      tags: [users]
+      summary: Get user details
+      parameters:
+        - name: username
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+
+  /user/repos:
+    get:
+      tags: [repositories]
+      summary: List authenticated user's repositories
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Repository'
+                  
+    post:
+      tags: [repositories]
+      summary: Create new repository
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NewRepository'
+      responses:
+        '201':
+          description: Repository created
+
+components:
+  schemas:
+    User:
+      type: object
+      properties:
+        login:
+          type: string
+        id:
+          type: integer
+        name:
+          type: string
+    Repository:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        full_name:
+          type: string
+    NewRepository:
+      type: object
+      required:
+        - name
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+        private:
+          type: boolean
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
