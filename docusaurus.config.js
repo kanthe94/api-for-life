@@ -4,6 +4,18 @@
 // There are various equivalent ways to declare your Docusaurus config.
 // See: https://docusaurus.io/docs/api/docusaurus-config
 
+module.exports = {
+  title: 'My Portfolio',
+  tagline: 'Simple User Guides for Everyday Products',
+  url: 'https://kanthe94.github.io',
+  baseUrl: '/api-for-life/',
+  onBrokenLinks: 'throw',
+  onBrokenMarkdownLinks: 'warn',
+  //favicon: 'img/ganesh.svg',
+  organizationName: 'kanthe94', // GitHub username
+  projectName: 'api-for-life', // GitHub repo name
+};
+
 import {themes as prismThemes} from 'prism-react-renderer';
 
 // This runs in Node.js - Don't use client-side code here (browser APIs, JSX...)
